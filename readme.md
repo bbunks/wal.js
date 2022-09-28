@@ -2,9 +2,19 @@
 
 wal.js allows you to watch a value and then listeners for when the value updates. The motivation behind this project was to create a way to easily listen to values of objects as they are updated, and then be able trigger actions as needed.
 
-# Watchers
+## Install
 
-## Value
+Install from npm using your prefer package manage.
+
+```
+npm i wal.js
+yarn add wal.js
+pnpm i wal.js
+```
+
+## Watcher
+
+Watchers are essentially variables. You can read and store any value, but you get the benefits of making decisions about what happens before and after setting the value.
 
 ### Create a new watcher
 
@@ -15,6 +25,8 @@ import { Watcher } from "wal.js";
 
 const pageIndexWatcher = new Watcher(1);
 ```
+
+## Value
 
 ### Read the watcher value
 
