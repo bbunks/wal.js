@@ -1,10 +1,19 @@
 export class Watcher<T> {
   //set types
   protected callbackFunctions: ((value: T) => void)[];
-  protected rules: ((value: T) => void)[];
+  protected rules: (
+    | ((newValue: T) => void)
+    | ((newValue: T, oldValue: T) => void)
+  )[];
   protected InternalValue: T;
 
   //constructor
+  /**
+   * Used to wrap a value in a watcher.
+   *
+   * @constructor
+   * @param {any} initialValue - The initial value of the watcher
+   */
   constructor(initialValue: T) {
     this.callbackFunctions = [];
     this.rules = [];
@@ -17,24 +26,49 @@ export class Watcher<T> {
   }
 
   //functions
+  /**
+   * Add a function to be called when the value is updated
+   *
+   * @param {function} callback - The function to be called when the value is updated
+   */
   addListener(callback: (value: T) => void) {
     this.callbackFunctions.push(callback);
   }
 
+  /**
+   * Stop a function from being called when the value is updated
+   *
+   * @param {function} callback - The function to stop being called when the value is updated
+   */
   removeListener(callback: (value: T) => void) {
     this.callbackFunctions = this.callbackFunctions.filter(
       (ele) => ele !== callback
     );
   }
 
+  /**
+   * Add a rule to be called before the value is updated
+   *
+   * @param {function} callback - The function to be called when the value is updated
+   */
   addRule(rule: (value: T) => void) {
     this.rules.push(rule);
   }
 
+  /**
+   * Stop a rule from being called before the value is updated
+   *
+   * @param {function} callback - The function to stop being called when the value is updated
+   */
   removeRule(callback: (value: T) => void) {
     this.rules = this.rules.filter((ele) => ele !== callback);
   }
 
+  /**
+   * Run all listeners with the current value
+   *
+   * @param {function} callback - The function to stop being called when the value is updated
+   */
   triggerListeners() {
     this.callbackFunctions.forEach(async (fn) => {
       fn(this.InternalValue);
@@ -43,7 +77,7 @@ export class Watcher<T> {
 
   set value(value: T) {
     this.rules.forEach((rule) => {
-      rule(value);
+      rule(value, this.InternalValue);
     });
 
     this.InternalValue = value;
