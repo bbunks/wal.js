@@ -1,10 +1,10 @@
+type Rule<T> = ((newValue: T) => void) | ((newValue: T, oldValue: T) => void);
+type Listener<T> = (value: T) => void;
+
 export class Watcher<T> {
   //set types
-  protected callbackFunctions: ((value: T) => void)[];
-  protected rules: (
-    | ((newValue: T) => void)
-    | ((newValue: T, oldValue: T) => void)
-  )[];
+  protected callbackFunctions: Listener<T>[];
+  protected rules: Rule<T>[];
   protected InternalValue: T;
 
   //constructor
@@ -31,7 +31,7 @@ export class Watcher<T> {
    *
    * @param {function} callback - The function to be called when the value is updated
    */
-  addListener(callback: (value: T) => void) {
+  addListener(callback: Listener<T>) {
     this.callbackFunctions.push(callback);
   }
 
@@ -40,7 +40,7 @@ export class Watcher<T> {
    *
    * @param {function} callback - The function to stop being called when the value is updated
    */
-  removeListener(callback: (value: T) => void) {
+  removeListener(callback: Listener<T>) {
     this.callbackFunctions = this.callbackFunctions.filter(
       (ele) => ele !== callback
     );
@@ -51,7 +51,7 @@ export class Watcher<T> {
    *
    * @param {function} callback - The function to be called when the value is updated
    */
-  addRule(rule: (value: T) => void) {
+  addRule(rule: Rule<T>) {
     this.rules.push(rule);
   }
 
@@ -60,7 +60,7 @@ export class Watcher<T> {
    *
    * @param {function} callback - The function to stop being called when the value is updated
    */
-  removeRule(callback: (value: T) => void) {
+  removeRule(callback: Rule<T>) {
     this.rules = this.rules.filter((ele) => ele !== callback);
   }
 

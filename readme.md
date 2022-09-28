@@ -1,6 +1,6 @@
 # wal.js (watch and listen)
 
-wal.js allows you to watch a value and then listeners for when the value updates. The motivation behind this project was to create a way to easily listen to values of objects as they are updated, and then be able trigger actions as needed.
+wal.js allows you to watch a value and then add listeners for when the value updates. The motivation behind this project was to create a way to easily listen to values of objects as they are updated, and then be able trigger actions as needed.
 
 ## Install
 
@@ -18,7 +18,7 @@ Watchers are essentially variables. You can read and store any value, but you ge
 
 ### Create a new watcher
 
-Watcher is a class. Just call it with the default value in its constructor,
+Watcher is a class. Call the constructor with the initial value as the only argument.
 
 ```javascript
 import { Watcher } from "wal.js";
