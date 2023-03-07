@@ -114,16 +114,16 @@ pageIndexWatcher.value = 3; // This will log 3 to the console.
 
 ## Rules
 
-Rules are similar to listeners, The difference is the functions are ran before the value is set. This means that you can throw errors to prevent data from being set to the value.
+Rules are similar to listeners. The difference is the functions are run before the value is set. This means that you can throw errors to prevent data from being set to the value.
 
 ### Add a rule
 
-The `addRule` function is used to add rules. It takes a function as its only argument and returns nothing. When you throw an exception in a rule, it will stop the value from being written.
+The `addRule` function is used to add rules. It takes a rule function as an argument. This rule function has 2 paramaters: the new value and the the old value. This rule function is ran before the value of the Watcher is set. When you throw an exception in a rule, it will stop the value from being written.
 
 ```javascript
 const pageIndexWatcher = new Watcher(1);
 
-function isNum(value) {
+function isNum(newValue, oldValue) {
   if (typeof value !== "number") throw "The value is not set to a number";
 }
 
@@ -134,7 +134,7 @@ pageIndexWatcher.value = "Hello world!"; // Uncaught: The value is not set to a 
 
 ### Remove a rule
 
-The `removeRule` function will stop a function from being called. It takes a function as its aonly argument.
+The `removeRule` function will stop a function from being called. It takes a function as its a only argument.
 
 ```javascript
 pageIndexWatcher.removeRule(isNum);

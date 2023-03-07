@@ -1,6 +1,11 @@
+/** A function that will be called before the value of a watcher is updated */
 type Rule<T> = ((newValue: T) => void) | ((newValue: T, oldValue: T) => void);
+/** A function that will be called when the value of a watcher is updated */
 type Listener<T> = (value: T) => void;
 
+/**
+ * A watch class
+ */
 export class Watcher<T> {
   //set types
   protected callbackFunctions: Listener<T>[];
@@ -9,8 +14,6 @@ export class Watcher<T> {
 
   //constructor
   /**
-   * Used to wrap a value in a watcher.
-   *
    * @constructor
    * @param {any} initialValue - The initial value of the watcher
    */
