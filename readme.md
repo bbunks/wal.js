@@ -2,9 +2,23 @@
 
 wal.js allows you to watch a value and then add listeners for when the value updates. The motivation behind this project was to create a way to easily listen to values of objects as they are updated, and then be able trigger actions as needed.
 
+## CDN
+
+Include this in the website header
+
+```html
+<script src="https://unpkg.com/wal.js"></script>
+```
+
+The Watcher class can be acccessed with:
+
+```js
+window.Watcher;
+```
+
 ## Install
 
-Install from npm using your prefer package manage.
+Install from npm using your preferred package manage.
 
 ```
 npm i wal.js
@@ -134,7 +148,7 @@ pageIndexWatcher.value = "Hello world!"; // Uncaught: The value is not set to a 
 
 ### Remove a rule
 
-The `removeRule` function will stop a function from being called. It takes a function as its a only argument.
+The `removeRule` function will stop a function from being called. It takes a function as its only argument.
 
 ```javascript
 pageIndexWatcher.removeRule(isNum);

@@ -6,7 +6,7 @@ type Listener<T> = (value: T) => void;
 /**
  * A watch class
  */
-export class Watcher<T> {
+class Watcher<T> {
   //set types
   protected callbackFunctions: Listener<T>[];
   protected rules: Rule<T>[];
@@ -94,3 +94,7 @@ export class Watcher<T> {
     return this.InternalValue;
   }
 }
+
+(window as any).Watcher = Watcher;
+
+export default { Watcher };

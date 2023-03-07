@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+  <link rel="stylesheet" href="./index.css">
+  <title>Document</title>
+  <script src="https://unpkg.com/wal.js"></script>
+  <script src="./index.js" defer></script>
+</head>
+
+<body>
+  <div class="container" style="max-width: 50rem;">
+    <div class="container">
+      <h1>Counter</h1>
+      <div class="row">
+        <button onclick="dec()">-</button>
+        <div style="display: flex; align-items: center; width: 100px; justify-content: space-around;">
+          <h3 id="counterLabel">0</h3>
+        </div>
+        <button onclick="inc()">+</button>
+      </div>
+    </div>
+    <div class="container" style="margin-top: 4rem;">
+      <h1>Form Input</h1>
+      <input onkeypress="onInputUpdate()" />
+      <div class="row">
+        <h3>Letters typed: </h3>
+        <h3 id="keyStrokes">0</h3>
+      </div>
+    </div>
+    <div class="container" style="margin-top: 4rem;">
+      <h1>Conditionally Formatted Cards</h1>
+      <p>This example will update the formatting of cards that are created on the fly.
+        Each card has its own value to
+        format off of. Changing the value number will trigger the listeners associated with each card. Green means that
+        the value is higher that the cards limit, yellow means it is the same, and red means that it is less than. </p>
+      <div class="row" id="card-container">
+      </div>
+      <button onclick="addCard()">Add new card</button> <label>Value: </label>
+      <input onchange="updateConFormValue(event)" value="0" type="number" autocomplete="off" />
+    </div>
+  </div>
+</body>
+
+</html>
