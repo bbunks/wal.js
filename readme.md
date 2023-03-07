@@ -10,10 +10,10 @@ Include this in the website header
 <script src="https://unpkg.com/wal.js"></script>
 ```
 
-The Watcher class can be acccessed with:
+The Watcher class can be acccessed with the window global:
 
 ```js
-window.Watcher;
+Watcher;
 ```
 
 ## Install

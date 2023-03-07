@@ -1,5 +1,5 @@
 //Counter
-const counter = new window.Watcher(0);
+const counter = new Watcher(0);
 
 counter.addListener((value) => {
   document.getElementById("counterLabel").innerText = value.toString();
@@ -14,7 +14,7 @@ function dec() {
 }
 
 //Form input
-const keyStrokeCounter = new window.Watcher(0);
+const keyStrokeCounter = new Watcher(0);
 
 keyStrokeCounter.addListener((value) => {
   document.getElementById("keyStrokes").innerText = value.toString();
@@ -25,7 +25,7 @@ function onInputUpdate() {
 }
 
 //Cards with different rules
-const conditionallyFormatted = new window.Watcher(0);
+const conditionallyFormatted = new Watcher(0);
 
 function updateConFormValue(e) {
   conditionallyFormatted.value = parseInt(e.target.value);
