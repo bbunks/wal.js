@@ -45,7 +45,7 @@ export class Watcher<T> {
    */
   removeListener(callback: Listener<T>) {
     this.callbackFunctions = this.callbackFunctions.filter(
-      (ele) => ele !== callback
+      (ele) => ele !== callback,
     );
   }
 
@@ -95,4 +95,6 @@ export class Watcher<T> {
   }
 }
 
-(window as any).Watcher = Watcher;
+if (typeof window !== "undefined") {
+  (window as any).Watcher = Watcher;
+}
