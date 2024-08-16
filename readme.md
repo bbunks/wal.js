@@ -75,12 +75,23 @@ Listeners are functions that are called whenever the value is updated successful
 
 ### Add a listener
 
-`addListener` is used to add a listener to the watcher. Call it with a reference to a function as the argument.
+`addListener` is used to add a listener to the watcher. Pass a function to addListener that takes the new value as an argument.
 
 ```javascript
 const pageIndexWatcher = new Watcher(1);
 
-//create watcher rules
+//create watcher rules with an anonomus function
+pageIndexWatcher.addListener((v) => console.log(v));
+
+pageIndexWatcher.value = 2; // This will log 2 to the console.
+pageIndexWatcher.value = 3; // This will log 3 to the console.
+```
+Or you can refine it with a static function
+
+```javascript
+const pageIndexWatcher = new Watcher(1);
+
+//create watcher rules with a static function
 function printPageToConsole(index: number) {
   console.log(index);
 }
@@ -92,7 +103,22 @@ pageIndexWatcher.value = 3; // This will log 3 to the console.
 
 ### Remove a listener
 
-To stop a listener from triggering, call `removeListener` with a reference to the original function.
+There are 2 options for removing a listener
+
+#### Call the returned function from `addListener`
+
+Add listener returns a function that will remove the lister when called. Just call that function and it will stop the listener.
+
+```javascript
+// create a listener
+const removeListener = pageIndexWatcher.addListener((v) => console.log(v));
+
+// remove it
+removeListener();
+```
+
+#### Call the removeLister function from the Watcher with a reference to the original function
+This is a more technical way to stop a listener from triggering and is only needed in niche cases. Calling `removeListener` with a reference to the original function will remove all instances of the function. This can be useful if there are multiple places you may add the listener, but will always want to stop it in the same place.
 
 ```javascript
 const pageIndexWatcher = new Watcher(1);
@@ -124,6 +150,8 @@ pageIndexWatcher.addListener(printPageToConsole);
 
 pageIndexWatcher.value = 2; // This will log 2 to the console.
 pageIndexWatcher.value = 3; // This will log 3 to the console.
+
+pageIndexWatcher.triggerListeners(); // This will log 3 to the console as it is the current value of the watcher
 ```
 
 ## Rules
@@ -132,12 +160,12 @@ Rules are similar to listeners. The difference is the functions are run before t
 
 ### Add a rule
 
-The `addRule` function is used to add rules. It takes a rule function as an argument. This rule function has 2 paramaters: the new value and the the old value. This rule function is ran before the value of the Watcher is set. When you throw an exception in a rule, it will stop the value from being written.
+The `addRule` function is used to add rules. It takes a rule function as an argument. This rule function has 2 paramaters: the incoming value and the the previous value. This rule function is ran before the value of the Watcher is set. When you throw an exception in a rule, it will stop the value from being written.
 
 ```javascript
 const pageIndexWatcher = new Watcher(1);
 
-function isNum(newValue, oldValue) {
+function isNum(newValue, prevVal) {
   if (typeof value !== "number") throw "The value is not set to a number";
 }
 

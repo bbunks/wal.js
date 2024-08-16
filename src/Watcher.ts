@@ -33,9 +33,12 @@ export class Watcher<T> {
    * Add a function to be called when the value is updated
    *
    * @param {function} callback - The function to be called when the value is updated
+   * @returns {void} The returned function will remove the listener when called
    */
   addListener(callback: Listener<T>) {
     this.callbackFunctions.push(callback);
+
+    return () => this.removeListener(callback);
   }
 
   /**
@@ -53,13 +56,16 @@ export class Watcher<T> {
    * Add a rule to be called before the value is updated
    *
    * @param {function} callback - The function to be called when the value is updated
+   * @returns {void} The returned function will remove the rule when called
    */
   addRule(rule: Rule<T>) {
     this.rules.push(rule);
+
+    return () => this.removeRule(rule);
   }
 
   /**
-   * Stop a rule from being called before the value is updated
+   * Remove a rule from being called before the value is updated
    *
    * @param {function} callback - The function to stop being called when the value is updated
    */
