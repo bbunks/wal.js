@@ -1,6 +1,6 @@
 {
   "name": "wal.js",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A library that allows you to register events to value updates",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -21,7 +21,7 @@
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"
   },
-  "files": ["dist"],
+  "files": ["dist", "src"],
   "types": "dist/index.d.ts",
   "keywords": ["reactive", "subscriber", "events", "wal.js"]
 }

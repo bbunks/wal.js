@@ -1,1 +1,2 @@
-export * from "./Watcher";
+export { Watcher } from "./Watcher";
+export { ComputeVal } from "./ComputedVal";
