@@ -6,7 +6,7 @@
   "module": "dist/esm/index.js",
   "type": "module",
   "repository": {
-    "url": "https://github.com/bbunks/wal.js"
+    "url": "https://github.com/bbunks/@wal.js/core"
   },
   "scripts": {
     "build": "rollup -c",
