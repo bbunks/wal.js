@@ -1,5 +1,28 @@
+# @wal.js/react
+
+@wal.js/react allows you to use wal.js in React. It adds a hook that takes a watcher. The hook keeps the state of the watcher in sync with the component.
+
+## Install
+
+Install from npm using your preferred package manage.
+
+```
+npm i @wal.js/react
+yarn add @wal.js/react
+pnpm i @wal.js/react
+```
+
+## wal()
+
+wal() is a composable that takes a watcher and returns a reactive value.
+
+### Usage
+
+```tsx
+import { Watcher } from "@wal.js/core";
 import { useWatcher } from "@wal.js/react";
-import { CounterWatcher } from "../../stores/CounterStore";
+
+export const CounterWatcher = new Watcher(0);
 
 export default function Counter() {
   useWatcher(CounterWatcher);
@@ -25,3 +48,4 @@ export default function Counter() {
     </div>
   );
 }
+```
