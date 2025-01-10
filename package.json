@@ -2,9 +2,6 @@
   "name": "wal.js",
   "version": "2.0.0",
   "description": "A library that allows you to register events to value updates",
-  "repository": {
-    "url": "https://github.com/bbunks/wal.js"
-  },
   "packageManager": "pnpm@9.0.0",
   "scripts": {
     "rollup": "rollup -c",
