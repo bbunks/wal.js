@@ -1,6 +1,6 @@
 .conditional-card {
   height: 100px;
-  width: 80px;
+  width: min-content;
   display: flex;
   padding-bottom: 10px;
   align-items: center;
@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.conditional-card > input {
+.conditional-card input {
   width: 60px;
 }
 
@@ -25,4 +25,106 @@
   --card-back-color: #308732;
   --card-fore-color: #f8f8f8;
   --card-border-color: #276b29;
+}
+
+#count-container {
+  display: flex;
+  gap: 5px;
+}
+
+#count-container div {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(103, 12, 152);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+details {
+  margin-top: 2rem;
+  margin-left: .5rem;
+}
+
+details summary {
+  cursor: pointer;
+}
+
+details code {
+  padding-left: 0;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--back-color);
+  border-bottom: 1px solid var(--secondary-border-color);
+}
+
+body {
+  padding-top: 4rem;
+}
+
+
+* {
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.reveal {
+  opacity: 1 !important;
+  user-select: initial;
+  height: auto !important;
+}
+
+#display-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+#display-container > * {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  height: 0;
+  margin: 0 2rem;
+}
+
+.chat {
+  background: #f0f0f0;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 0;
+  border: 1px solid var(--secondary-border-color);
+  max-width: 24rem;
+  align-self: flex-start;
+  position: relative;
+}
+
+.chat::before {
+  content: '';
+  position: absolute;
+  left: -0.5rem;
+  top: 1rem;
+  border: 0.5rem solid transparent;
+  border-right-color: #f0f0f0;
+}
+
+.container {
+  margin:0;
+}
+
+.code {
+  border: 1px solid var(--secondary-border-color);
+  border-radius: 4px;
+  padding: 2px 4px;
+  background: var(--form-border-color);
 }

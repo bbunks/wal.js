@@ -1,6 +1,6 @@
 # wal.js (watch and listen)
 
-wal.js allows you to watch a value and then add listeners for when the value updates. The motivation behind this project was to create a way to easily listen to values of objects as they are updated, and then be able trigger actions as needed.
+wal.js is a data drive event listener. It allows you to watch a value and then add listeners for when the value updates. The motivation behind this project was to create a way to easily listen to values of objects as they are updated, and then be able trigger actions as needed.
 
 ## CDN
 

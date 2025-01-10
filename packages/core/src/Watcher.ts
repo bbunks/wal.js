@@ -1,16 +1,13 @@
-/** A function that will be called before the value of a watcher is updated */
-type Rule<T> = ((newValue: T) => void) | ((newValue: T, oldValue: T) => void);
-/** A function that will be called when the value of a watcher is updated */
-type Listener<T> = (value: T) => void;
-
+import { Listener, ComputedValue, Rule } from "./Types";
 /**
  * A watch class
  */
 export class Watcher<T> {
   //set types
-  protected callbackFunctions: Listener<T>[];
-  protected rules: Rule<T>[];
+  protected callbackFunctions: Set<Listener<T>>;
+  protected rules: Set<Rule<T>>;
   protected InternalValue: T;
+  protected ComputedValues: Set<ComputedValue<T, any>>;
 
   //constructor
   /**
@@ -18,8 +15,9 @@ export class Watcher<T> {
    * @param {any} initialValue - The initial value of the watcher
    */
   constructor(initialValue: T) {
-    this.callbackFunctions = [];
-    this.rules = [];
+    this.callbackFunctions = new Set();
+    this.rules = new Set();
+    this.ComputedValues = new Set();
     this.InternalValue = initialValue;
     this.triggerListeners = this.triggerListeners.bind(this);
     this.addListener = this.addListener.bind(this);
@@ -36,7 +34,7 @@ export class Watcher<T> {
    * @returns {void} The returned function will remove the listener when called
    */
   addListener(callback: Listener<T>) {
-    this.callbackFunctions.push(callback);
+    this.callbackFunctions.add(callback);
 
     return () => this.removeListener(callback);
   }
@@ -47,9 +45,7 @@ export class Watcher<T> {
    * @param {function} callback - The function to stop being called when the value is updated
    */
   removeListener(callback: Listener<T>) {
-    this.callbackFunctions = this.callbackFunctions.filter(
-      (ele) => ele !== callback,
-    );
+    this.callbackFunctions.delete((ele) => ele !== callback);
   }
 
   /**
@@ -59,7 +55,7 @@ export class Watcher<T> {
    * @returns {void} The returned function will remove the rule when called
    */
   addRule(rule: Rule<T>) {
-    this.rules.push(rule);
+    this.rules.add(rule);
 
     return () => this.removeRule(rule);
   }
@@ -70,7 +66,7 @@ export class Watcher<T> {
    * @param {function} callback - The function to stop being called when the value is updated
    */
   removeRule(callback: Rule<T>) {
-    this.rules = this.rules.filter((ele) => ele !== callback);
+    this.rules.delete(callback);
   }
 
   /**
@@ -79,7 +75,7 @@ export class Watcher<T> {
    * @param {function} callback - The function to stop being called when the value is updated
    */
   triggerListeners() {
-    this.callbackFunctions.forEach(async (fn) => {
+    this.callbackFunctions.forEach((fn) => {
       fn(this.InternalValue);
     });
   }
@@ -91,7 +87,7 @@ export class Watcher<T> {
 
     this.InternalValue = value;
 
-    this.callbackFunctions.forEach(async (fn) => {
+    this.callbackFunctions.forEach((fn) => {
       fn(value);
     });
   }
@@ -99,8 +95,4 @@ export class Watcher<T> {
   get value() {
     return this.InternalValue;
   }
-}
-
-if (typeof window !== "undefined") {
-  (window as any).Watcher = Watcher;
 }

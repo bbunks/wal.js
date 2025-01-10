@@ -20,6 +20,21 @@ keyStrokeCounter.addListener((value) => {
   document.getElementById("keyStrokes").innerText = value.toString();
 });
 
+keyStrokeCounter.addListener((value) => {
+  const div = document.createElement("div");
+  div.innerText = counter.value;
+  document.getElementById("count-container").appendChild(div);
+
+  const delListener = counter.addListener((value) => {
+    div.innerText = value;
+  });
+
+  div.onclick = () => {
+    delListener();
+    div.remove();
+  };
+});
+
 function onInputUpdate() {
   keyStrokeCounter.value = keyStrokeCounter.value + 1;
 }
@@ -69,11 +84,34 @@ function addCard() {
   };
   card.appendChild(closeButton);
 
+  const inputContainer = document.createElement("div");
+  inputContainer.style.display = "flex";
+  inputContainer.style.alignItems = "center";
+  inputContainer.style.gap = "8px";
+
+  const minusButton = document.createElement("button");
+  minusButton.innerText = "-";
+  minusButton.onmousedown = () => {
+    input.value = parseInt(input.value) - 1;
+    setCardBg(conditionallyFormatted.value);
+  };
+  inputContainer.appendChild(minusButton);
+
   const input = document.createElement("input");
-  input.type = "number";
+  input.type = "text";
   input.value = 0;
   input.onchange = () => setCardBg(conditionallyFormatted.value);
-  card.appendChild(input);
+  inputContainer.appendChild(input);
+
+  const plusButton = document.createElement("button");
+  plusButton.innerText = "+";
+  plusButton.onmousedown = () => {
+    input.value = parseInt(input.value) + 1;
+    setCardBg(conditionallyFormatted.value);
+  };
+  inputContainer.appendChild(plusButton);
+
+  card.appendChild(inputContainer);
 
   setCardBg(conditionallyFormatted.value);
 
@@ -83,3 +121,66 @@ function addCard() {
 }
 
 addCard();
+
+// Everything below this is for the tutorial
+
+function revealNext(...delays) {
+  const displayContainer = document.getElementById("display-container");
+  const children = displayContainer.children;
+  let revealed = 0;
+
+  for (let i = 0; i < children.length; i++) {
+    if (children[i].classList.contains("reveal")) {
+      revealed++;
+    }
+  }
+
+  delays.forEach((delay, index) => {
+    if (revealed + index < children.length) {
+      setTimeout(() => {
+        children[revealed + index].classList.add("reveal");
+      }, delay);
+    }
+  });
+}
+
+revealNext(0);
+
+function n() {
+  revealNext(1000, 4500, 5000, 7500, 8000);
+}
+
+function revIntro() {
+  revealNext(0, 1000);
+}
+
+function revealCounter() {
+  revealNext(1000);
+}
+
+function revealNextInstruction() {
+  revealNext(1000, 0);
+}
+
+// for tutorial updates
+counter.addListener(() => {
+  if (keyStrokeCounter.value > 0) {
+    runOnce(revealCounter);
+  }
+
+  runOnce(n);
+});
+
+keyStrokeCounter.addListener((value) => {
+  runOnce(revealNextInstruction);
+});
+
+const ranFunctions = new Set();
+
+function runOnce(fn) {
+  if (ranFunctions.has(fn)) {
+    return;
+  }
+  fn();
+  ranFunctions.add(fn);
+}

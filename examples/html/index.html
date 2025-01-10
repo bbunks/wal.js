@@ -1,49 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css"
+    />
+    <link rel="stylesheet" href="./index.css" />
+    <title>Document</title>
+    <script src="/dist/cjs/index.js"></script>
+    <script src="./index.js" defer></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
-  <link rel="stylesheet" href="./index.css">
-  <title>Document</title>
-  <script src="https://unpkg.com/wal.js"></script>
-  <script src="./index.js" defer></script>
-</head>
-
-<body>
-  <div class="container" style="max-width: 50rem;">
-    <div class="container">
-      <h1>Counter</h1>
-      <div class="row">
-        <button onclick="dec()">-</button>
-        <div style="display: flex; align-items: center; width: 100px; justify-content: space-around;">
-          <h3 id="counterLabel">0</h3>
+  <body>
+    <header>
+      <h1>wal.js</h1>
+      <p>A library that allows you to register events to variable updates</p>
+    </header>
+    <div id="display-container">
+      <div id="introduction" class="chat">
+        <p>
+          Hi, I'm Walter, I will be your guide to learning wal.js. I will walk
+          you through these examples to help you understand how to use the
+          library.
+        </p>
+        <button onclick="runOnce(revIntro)">Cool</button>
+      </div>
+      <p id="startCounterMessage" class="chat">
+        Let's start with the counter example. Below you will see a counter, go
+        ahead and click either button.
+      </p>
+      <div class="container" id="counter-container">
+        <h1>Counter</h1>
+        <div class="row">
+          <button onclick="dec()">-</button>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              width: 100px;
+              justify-content: space-around;
+            "
+          >
+            <h3 id="counterLabel">0</h3>
+          </div>
+          <button onclick="inc()">+</button>
         </div>
-        <button onclick="inc()">+</button>
-      </div>
-    </div>
-    <div class="container" style="margin-top: 4rem;">
-      <h1>Form Input</h1>
-      <input onkeypress="onInputUpdate()" />
-      <div class="row">
-        <h3>Letters typed: </h3>
-        <h3 id="keyStrokes">0</h3>
-      </div>
-    </div>
-    <div class="container" style="margin-top: 4rem;">
-      <h1>Conditionally Formatted Cards</h1>
-      <p>This example will update the formatting of cards that are created on the fly.
-        Each card has its own value to
-        format off of. Changing the value number will trigger the listeners associated with each card. Green means that
-        the value is higher that the cards limit, yellow means it is the same, and red means that it is less than. </p>
-      <div class="row" id="card-container">
-      </div>
-      <button onclick="addCard()">Add new card</button> <label>Value: </label>
-      <input onchange="updateConFormValue(event)" value="0" type="number" autocomplete="off" />
-    </div>
-  </div>
-</body>
+        <details>
+          <summary>Counter Code</summary>
+          <pre><code lang="javascript">&lt;div class="row"&gt;
+  &lt;button onclick="dec()"&gt;-&lt;/button&gt;
+  &lt;div&gt;
+    &lt;h3 id="counterLabel"&gt;0&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;button onclick="inc()"&gt;+&lt;/button&gt;
+&lt;/div&gt;
 
+
+// JavaScript
+const counter = new Watcher(0);
+
+counter.addListener((value) => {
+  document.getElementById("counterLabel").innerText = value.toString();
+});
+
+function inc() {
+  counter.value = counter.value + 1;
+}
+
+function dec() {
+  counter.value = counter.value - 1;
+}</code></pre>
+        </details>
+      </div>
+      <p id="counter-explanation" class="chat">
+        Notice how the number changes when you click the buttons. Pressing the
+        button updates a Watcher. We setup a listener that updates the number
+        each time the value is updated.
+      </p>
+      <p id="counter-explanation-2" class="chat">
+        To acheive this, we created a Watcher with an initial value of 0.<br />
+        <code class="code">const counter = new Watcher(0);</code>
+      </p>
+      <p id="counter-explanation-2" class="chat">
+        Next we added a listener to the watcher to update label.
+        <br />
+        <code class="code">
+          counter.addListener((value) => {
+          document.getElementById("counterLabel").innerText = value.toString();
+          });
+        </code>
+      </p>
+
+      <p id="counter-done" class="chat">Now lets look at the next example.</p>
+      <div id="form-input-container" class="container be-hidden">
+        <h1>Form Input</h1>
+        <p>Type in the input field.</p>
+        <input onkeypress="onInputUpdate()" />
+        <div class="row">
+          <h3>Letters typed:</h3>
+          <h3 id="keyStrokes">0</h3>
+        </div>
+        <div class="row" id="count-container"></div>
+        <details>
+          <summary>Form Input Code</summary>
+          <pre><code lang="javascript">&lt;input onkeypress="onInputUpdate()" /&gt;
+&lt;div class="row"&gt;
+  &lt;h3&gt;Letters typed:&lt;/h3&gt;
+  &lt;h3 id="keyStrokes"&gt;0&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div class="row" id="count-container"&gt;&lt;/div&gt;
+
+// JavaScript
+const keyStrokeCounter = new Watcher(0);
+
+keyStrokeCounter.addListener((value) => {
+  document.getElementById("keyStrokes").innerText = value.toString();
+});
+
+function onInputUpdate() {
+  keyStrokeCounter.value = keyStrokeCounter.value + 1;
+}
+
+keyStrokeCounter.addListener((value) => {
+  const div = document.createElement("div");
+  div.innerText = counter.value;
+  document.getElementById("count-container").appendChild(div);
+
+  const delListener = counter.addListener((value) => {
+    div.innerText = value;
+  });
+
+  div.onclick = () => {
+    delListener();
+    div.remove();
+  };
+});</code></pre>
+        </details>
+      </div>
+      <p class="chat">
+        You will see that boxes with a number appear as you type. Now go back
+        and change the value of the counter above.
+      </p>
+      <p class="chat" id="counter-update-text">
+        The boxes will update with the new value of the counter. This is because
+        each box is listening to the counter.
+      </p>
+      <div class="container">
+        <h1>Conditionally Formatted Cards</h1>
+        <p>
+          This example will update the formatting of cards that are created on
+          the fly. Each card has its own value to format off of. Changing the
+          value number will trigger the listeners associated with each card.
+          Green means that the value is higher that the cards limit, yellow
+          means it is the same, and red means that it is less than.
+        </p>
+        <button onclick="addCard()">Add new card</button>
+        <label>Value: </label>
+        <input
+          onchange="updateConFormValue(event)"
+          value="0"
+          type="number"
+          autocomplete="off"
+        />
+        <div class="row" id="card-container"></div>
+        <details>
+          <summary>Conditional Card Code</summary>
+          <pre><code lang="javascript">
+const conditionallyFormatted = new Watcher(0);
+
+function updateConFormValue(e) {
+  conditionallyFormatted.value = parseInt(e.target.value);
+}
+
+function setCardBg(value) {
+  //reset the values
+  card.classList.remove("error");
+  card.classList.remove("warning"); 
+  card.classList.remove("good");
+  
+  const inputValue = parseInt(input.value);
+
+  // if less than, then red
+  if (value > inputValue) {
+    card.classList.add("error");
+  }
+
+  // if equal, then yellow
+  if (inputValue === value) {
+    card.classList.add("warning");
+  }
+
+  // if greater than, then green
+  if (value < inputValue) {
+    card.classList.add("good");
+  }
+}
+</code></pre>
+        </details>
+      </div>
+      <div id="chat-container"></div>
+    </div>
+  </body>
 </html>
