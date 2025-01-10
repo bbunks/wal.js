@@ -1,5 +1,5 @@
 import { Watcher } from "./Watcher.js";
-import { Listener } from "./Types";
+import { Listener } from "./Types.js";
 
 export class ComputeVal<T, S> extends Watcher<S> implements Watcher<S> {
   protected InternalValue: S;

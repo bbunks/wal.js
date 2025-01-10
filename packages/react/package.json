@@ -1,0 +1,34 @@
+{
+  "name": "@wal.js/react",
+  "version": "2.0.0",
+  "description": "A library allows you to use wal.js in react",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "type": "module",
+  "repository": {
+    "url": "https://github.com/bbunks/wal.js"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c --watch"
+  },
+  "author": "Brenden Bunker",
+  "license": "ISC",
+  "files": ["dist", "src"],
+  "types": "dist/index.d.ts",
+  "peerDependencies": {
+    "@wal.js/core": "workspace:*",
+    "react": "^18.0.0"
+  },
+  "devDependencies": {
+    "@wal.js/core": "workspace:*",
+    "react": "^18.0.0",
+    "@types/react": "^18.0.0"
+  },
+  "publishConfig": {
+    "peerDependencies": {
+      "@wal.js/core": "^2.0.0"
+    }
+  },
+  "keywords": ["reactive", "subscriber", "events", "wal.js", "react"]
+}

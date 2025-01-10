@@ -2,8 +2,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
-
-const packageJson = require("./package.json");
+import packageJson from "./package.json" assert { type: "json" };
 
 export default [
   {
@@ -12,15 +11,20 @@ export default [
       {
         file: packageJson.main,
         format: "cjs",
-        sourcemap: true,
+        sourcemap: false,
       },
     ],
     plugins: [
       resolve(),
       commonjs(),
-      typescript({ tsconfig: "./tsconfig.json" }),
+      typescript({
+        tsconfig: "../../tsconfig.json",
+        compilerOptions: { outDir: "dist/cjs" },
+        sourceMap: false,
+        declaration: false,
+        emitDeclarationOnly: false,
+      }),
     ],
-    external: ["react"],
   },
   {
     input: "src/index.ts",
@@ -31,8 +35,15 @@ export default [
         sourcemap: true,
       },
     ],
-    plugins: [resolve(), typescript({ tsconfig: "./tsconfig.json" })],
-    external: ["react"],
+    plugins: [
+      resolve(),
+      typescript({
+        tsconfig: "../../tsconfig.json",
+        compilerOptions: { outDir: "dist/esm" },
+        sourceMap: true,
+        declaration: true,
+      }),
+    ],
   },
   {
     input: "dist/esm/index.d.ts",

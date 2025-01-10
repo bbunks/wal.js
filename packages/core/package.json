@@ -1,0 +1,20 @@
+{
+  "name": "@wal.js/core",
+  "version": "2.0.0",
+  "description": "A library that allows you to register events to value updates",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "type": "module",
+  "repository": {
+    "url": "https://github.com/bbunks/wal.js"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c --watch"
+  },
+  "author": "Brenden Bunker",
+  "license": "ISC",
+  "files": ["dist", "src"],
+  "types": "dist/index.d.ts",
+  "keywords": ["reactive", "subscriber", "events", "wal.js"]
+}
