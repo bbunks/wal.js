@@ -2,9 +2,8 @@
   "name": "@wal.js/vue",
   "version": "2.0.0",
   "description": "A library allows you to use wal.js in vue",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "repository": {
     "url": "https://github.com/bbunks/wal.js"
   },

@@ -4,7 +4,6 @@
   "description": "A library that allows you to register events to value updates",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "type": "module",
   "repository": {
     "url": "https://github.com/bbunks/wal.js"
   },
