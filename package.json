@@ -1,6 +1,6 @@
 {
   "name": "wal.js",
-  "version": "2.0.0",
+  "version": "2.0.4",
   "description": "A library that allows you to register events to value updates",
   "packageManager": "pnpm@9.0.0",
   "repository": {
@@ -21,8 +21,6 @@
     "rollup-plugin-dts": "^6.0.0",
     "tslib": "^2.8.1",
     "typescript": "^5.7.2",
-    "turbo": "^2.3.3",
-    "@wal.js/core": "workspace:*",
-    "@wal.js/react": "workspace:*"
+    "turbo": "^2.3.3"
   }
 }

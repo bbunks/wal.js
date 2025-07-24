@@ -14,7 +14,7 @@ export class Watcher<T> {
    * @constructor
    * @param {any} initialValue - The initial value of the watcher
    */
-  constructor(initialValue: T) {
+  constructor(initialValue: T, options: { name?: string } = {}) {
     this.callbackFunctions = new Set();
     this.rules = new Set();
     this.ComputedValues = new Set();
@@ -24,6 +24,25 @@ export class Watcher<T> {
     this.removeListener = this.removeListener.bind(this);
     this.addRule = this.addRule.bind(this);
     this.removeRule = this.removeRule.bind(this);
+
+    if (typeof window !== "undefined" && (window as any).__REDUX_DEVTOOLS_EXTENSION__) {
+      (window as any).__REDUX_DEVTOOLS_EXTENSION__.send({
+        type: "INIT",
+        payload: {
+          name: options.name,
+          value: initialValue,
+        },
+      });
+
+      this.addListener((val) => {
+        (window as any).__REDUX_DEVTOOLS_EXTENSION__.send({
+          type: "UPDATE",
+          payload: {
+            value: val,
+          },
+        });
+      })
+    }
   }
 
   //functions

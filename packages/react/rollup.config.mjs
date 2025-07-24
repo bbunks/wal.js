@@ -25,6 +25,7 @@ export default [
         emitDeclarationOnly: false,
       }),
     ],
+    external: ["react", "@wal.js/core"],
   },
   {
     input: "src/index.ts",

@@ -25,6 +25,7 @@ export default [
         emitDeclarationOnly: false,
       }),
     ],
+    external: ["vue", "@wal.js/core"],
   },
   {
     input: "src/index.ts",
